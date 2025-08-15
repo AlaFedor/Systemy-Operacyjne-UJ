@@ -1,0 +1,58 @@
+========================================================================
+Autor: Alicja Fedor,                               Krakow, 09.04.2024
+========================================================================
+
+* Zawartosc:
+============
+
+Katalog cwiczenie3 zawiera:
+--------------------------------------------------------------------
+
+3a Napisac program do obslugi sygnalow z mozliwosciami: (1) wykonania operacji domyslnej, (2) ignorowania oraz (3) przechwycenia i wlasnej obslugi sygnalu. Do oczekiwania na sygnal uzyc funkcji pause. Uruchomic program i wysylac do niego sygnaly przy pomocy sekwencji klawiszy oraz przy pomocy polecenia kill z poziomu powloki.
+
+3b Uruchomic powyzszy program poprzez funkcje execlp w procesie potomnym innego
+procesu (z uzyciem funkcji fork) i wysylac do niego sygnaly poprzez funkcje systemowa kill z procesu macierzystego. ! Uwaga: Przed wyslaniem sygnalu sprawdzic, czy proces istnieje (patrz podrozdzial 3.2). Proces macierzysty powinien zaczekac na zakonczenie swojego potomka przy pomocy funkcji wait, a nastepnie wypisac jego PID i status zakonczenia zwracane przez t funkcje. W przypadku zakonczenia procesu potomnego przez sygnal powinien wypisac dodatkowo numer tego sygnalu zawarty w statusie zakonczenia, a takze jego nazwe (uzyc funkcji strsignal). Do
+wyluskania numeru sygnalu ze statusu zakonczenia uzyc makr opisanych w podrozdziale 2.4.
+
+3c W procesie macierzystym utworzyc proces potomny (funkcja fork) i sprawic, aby stal
+sie liderem nowej grupy procesow (funkcja setpgid), a nastepnie poprzez funkcje execlp uruchomic w nim program tworzacy kilka procesow potomnych (funkcja fork w petli), ktore poprzez funkcje execlp wykonuja program do obslugi sygnalow z punktu (a). Z pierwszego procesu macierzystego wysylac sygnaly do calej grupy procesow potomnych po uprzednim sprawdzeniu jej istnienia. Identyfikator tej grupy procesow uzyskac przy pomocy funkcji getpgid. Proces bedacy liderem grupy procesow niech ignoruje sygnaly, a na koncu czeka na zakonczenie wszystkich swoich procesow potomnych i wypisuje ich identyfikatory PID oraz status zakonczenia (zwracane przez funkcje wait), a w przypadku zakonczenia tych procesow przez sygnal takze numer i nazwe odpowiedniego sygnalu. Pierwszy proces macierzysty rowniez powinien zaczekac na zakonczenie swojego bezposredniego potomka i wypisac jego PID oraz status zakonczenia zwracane przez funkcje wait.
+
+------------------------------------------------------------------------
+
+* Jak uruchomic programy:
+=========================
+
+Katalog zawiera program Makefile do kompilacji, linkowania
+i uruchamiania powyzszych programow, a takze czyszczenia katalogu 
+i jego archiwizacji.
+
+-> Aby uruchomic którykolwiek z programów należy na samym poczatku wykonac komende:
+	make all
+
+-> Aby uruchomic 1-szy program, nalezy wykonac komende:
+       ./3a.x numer_sygnalu opcja_obslugi
+       przy czym aby wykonac operacje domyslna opcja_obslugi = 1,
+       aby zignorowac opcja_oblugi = 2, aby przechwycic opcja_obslugi = 3
+
+
+-> Aby uruchomic 2 program, nalezy wykonac komende:
+       ./3b.x numer_sygnalu opcja_obslugi
+       przy czym aby wykonac operacje domyslna opcja_obslugi = 1,
+       aby zignorowac opcja_oblugi = 2, aby przechwycic opcja_obslugi = 3
+
+
+-> Aby uruchomic 3 program, nalezy wykonac komende:
+       ./3c.x numer_sygnalu opcja_obslugi
+       przy czym aby wykonac operacje domyslna opcja_obslugi = 1,
+       aby zignorowac opcja_oblugi = 2, aby przechwycic opcja_obslugi = 3
+
+
+-> Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+       make clean
+
+-> W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+       make tar
+
+========================================================================
+Odpowiedzi do pytan:
+
