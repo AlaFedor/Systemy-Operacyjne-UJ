@@ -1,0 +1,49 @@
+========================================================================
+Autor: Alicja Fedor,                               Krakow, 01.04.2024
+========================================================================
+
+* Zawartosc:
+============
+
+Katalog cwiczenie2 zawiera:
+--------------------------------------------------------------------
+
+Zmodyfikowac program z cwiczenia 1b tak, aby komunikaty procesow potomnych byly
+wypisywane przez program uruchamiany przez funkcje execlp. Nazwe programu do uruchomienia przekazywac przez argumenty
+programu procesu macierzystego. Ile procesow powstanie przy n-krotnym wywolaniu funkcji fork-exec jak wyzej i dlaczego?
+
+------------------------------------------------------------------------
+
+* Jak uruchomic programy:
+=========================
+
+Katalog zawiera program Makefile do kompilacji, linkowania
+i uruchamiania powyzszych programow, a takze czyszczenia katalogu 
+i jego archiwizacji.
+
+-> Aby uruchomic program, nalezy wykonac komende:
+       make run1
+
+---> Dla pewnosci, ze wykonywane sa polecenia zdefiniowane w Makefile,
+     a nie wbudowane polecenia make'a, uzyc opcji -r, tzn.
+       make -r run1
+
+lub 
+-> Aby uruchomic program, nalezy wykonac komende:
+       make all a nastêpnie z poziomu pow³oki uruchomic program ./2a.x ./nowyprogram.x  (zamiast nowyprogram mozemy dac dowolny
+program jaki chcemy zeby zostal wykonany)
+
+
+
+-> Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+       make clean
+
+-> W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+       make tar
+
+========================================================================
+Odpowiedzi do pytan:
+Ile procesow powstanie przy n-krotnym wywolaniu funkcji fork-exec jak wyzej i dlaczego?
+Powstanie n procesów poniewa¿ gdy proces macierzysty wywoluje fork to tworzy nowy proces
+potomny, ktory nastepnie jest zastepowany programem wywolanym przez execlp.
+Po wykonaniu execlp proces potomny konczy swoje dzialanie.
