@@ -1,0 +1,108 @@
+========================================================================
+Autor: Alicja Fedor,                               Krakow, 23.03.2024
+========================================================================
+
+* Zawartosc:
+============
+
+Katalog cwiczenie1 zawiera:
+--------------------------------------------------------------------
+
+1a Napisac program wypisujacy identyfikatory UID, GID, PID, PPID i PGID dla danego procesu.
+
+1b Wywolac funkcje fork trzy razy (najlepiej w petli for) i wypisac powyzsze identyfikatory dla procesu macierzystego oraz wszystkich procesow potomnych (najlepiej dla kazdego 
+procesu w pojedynczej linii). Przy pomocy funkcji wait sprawic, aby proces macierzysty zaczekal na zakonczenie wszystkich procesow potomnych.
+
+1c Jak w (b), tylko przy uzyciu funkcji sleep (! nie uzywac funkcji wait) sprawiac by procesy potomne byly adoptowane przez proces init lub jego odpowiednik.
+Nastepnie z poziomu powloki wykonac polecenie pstree -p i w wyswietlonym drzewie procesow zidentyfikowac proces, ktory adoptuje osierocone procesy wdanym systemie.
+
+1d Jak w (b), tylko wstawic funkcje sleep w takich miejscach programu, aby procesy pojawialy sie na ekranie grupowane pokoleniami od najstarszego donajmlodszego,
+ a proces macierzysty konczyl sie dopiero po procesach potomnych (! nie uzywac funkcji wait). Na podstawie wynikow programu sporzadzic,,drzewo genealogiczne” tworzonych
+ procesow, tzn. do pliku tekstowego ,,wkleic" wyniki programu, a nastepnie narysowaac drzewo genealogiczne, zaznaczajac na nim identyfikatory PID, PPID i PGID.
+
+1e) Jak w (b), tylko przy uzyciu fukcji setpgid sprawic by kazdy proces potomny stawal sie liderem swojej wlasnej grupy procesow.
+    ! Ile proces´ow powstanie przy n-krotnym wywo laniu funkcji fork i dlaczego?
+
+------------------------------------------------------------------------
+
+* Jak uruchomic programy:
+=========================
+
+Katalog zawiera program Makefile do kompilacji, linkowania
+i uruchamiania powyzszych programow, a takze czyszczenia katalogu 
+i jego archiwizacji.
+
+-> Aby uruchomic 1-szy program, nalezy wykonac komende:
+       make run1
+
+---> Dla pewnosci, ze wykonywane sa polecenia zdefiniowane w Makefile,
+     a nie wbudowane polecenia make'a, uzyc opcji -r, tzn.
+       make -r run1
+
+-> Aby uruchomic 2 program, nalezy wykonac komende:
+       make run2
+
+---> Dla pewnosci, ze wykonywane sa polecenia zdefiniowane w Makefile,
+     a nie wbudowane polecenia make'a, uzyc opcji -r, tzn.
+       make -r run2
+
+-> Aby uruchomic 3 program, nalezy wykonac komende:
+       make run3
+
+---> Dla pewnosci, ze wykonywane sa polecenia zdefiniowane w Makefile,
+     a nie wbudowane polecenia make'a, uzyc opcji -r, tzn.
+       make -r run3
+
+-> Aby uruchomic 4 program, nalezy wykonac komende:
+       make run4
+
+---> Dla pewnosci, ze wykonywane sa polecenia zdefiniowane w Makefile,
+     a nie wbudowane polecenia make'a, uzyc opcji -r, tzn.
+       make -r run4
+
+-> Aby uruchomic 5 program, nalezy wykonac komende:
+       make run5
+
+---> Dla pewnosci, ze wykonywane sa polecenia zdefiniowane w Makefile,
+     a nie wbudowane polecenia make'a, uzyc opcji -r, tzn.
+       make -r run5
+
+
+
+-> Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+       make clean
+
+-> W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+       make tar
+
+========================================================================
+Odpowiedzi do pytan:
+1c procesy potomne sa adoptowane przez systemd
+1d
+Identyfikatory procesu macierzystego: UID: 30887, GID: 10000, PID: 48194, PGID: 48186, PPID: 48186
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48195, PGID: 48186, PPID: 48194
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48197, PGID: 48186, PPID: 48195
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48198, PGID: 48186, PPID: 48194
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48200, PGID: 48186, PPID: 48197
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48205, PGID: 48186, PPID: 48195
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48206, PGID: 48186, PPID: 48198
+Identyfikatory procesu potomnego: UID: 30887, GID: 10000, PID: 48219, PGID: 48186, PPID: 48194
+
+
+
+					     PID: 48194,  PGID: 48186,  PPID: 48186
+				         /		            |                	     \
+				        /                           |                         \
+      PID: 48195, PGID: 48186, PPID: 48194      PID: 48198, PGID: 48186, PPID: 48194        PID: 48219, PGID: 48186, PPID: 48194
+
+    /                                   \                                       \
+   /                                     \                                       \
+PID: 48197, PGID: 48186, PPID: 48195   PID: 48205, PGID: 48186, PPID: 48195     PID: 48206, PGID: 48186, PPID: 48198
+
+                |
+		|
+PID: 48200, PGID: 48186, PPID: 48197
+
+1e przy n krotnym wywolaniu funkcji fork powstanie 2^n procesow poniewaz funkcja fork tworzy proces potomny dla kazdego procesu ktory ja wywoluje.
+
+
