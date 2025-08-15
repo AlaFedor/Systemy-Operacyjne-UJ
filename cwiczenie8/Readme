@@ -1,0 +1,61 @@
+========================================================================
+Autor: Alicja Fedor,                               Krakow, 23.05.2024
+========================================================================
+
+* Zawartosc:
+============
+
+Katalog cwiczenie8 zawiera:
+--------------------------------------------------------------------
+
+CWICZENIE 8:  Klient–Serwer: Kolejki Komunikatow
+Proces klienta wysyla do procesu serwera zadanie wykonania dzialania arytmetycznego
+na dwoch liczbach postaci: liczba@liczba, gdzie operator  @ nalezy do {+, -, *, /}, np. 2+3.
+Serwer wykonuje odpowiednie dzialanie i odsyla wynik do klienta. Klient odbiera ten
+wynik i wypisuje go na ekranie. Poslugujac sie mechanizmem kolejek komunikatow
+standardu POSIX zaimplementowac powyzsze zadanie typu klient–serwer z mozliwoscia
+obslugi przez serwera wielu klientow naraz. Niech serwer utworzy kolejke komunikatow w trybie do odbierania o nazwie zdefiniowanej
+ we wspolnym pliku naglowkowym wlaczanym w plikach zrodlowych programow serwera i klienta. Do tej kolejki klient bedzie wysylal swoje komunikaty,
+ a serwer bedzie je z niej odbieral. Klient z kolei niech utworzy kolejke komunikatow w trybie do odbierania o
+nazwie /PID, gdzie PID jest jego identyfikatorem procesu PID, np. /17895 (do utworzenia
+tej nazwy uzyc np. funkcji snprintf). Nastepnie niech klient otworzy kolejke serwera w
+trybie do nadawania komunikatow i w petli wczytuje z klawiatury ÿzadane dzialanie (np. uzywajac funkcji fgets), tworzy komunikat umieszczajac na pocz ,
+atku swoj PID, a po nim wczytane wyrazenie (np. przy pomocy funkcji snprintf), po czym wysyla taki komunikat do kolejki serwera. Petle mozna zakonczyc znakiem
+ konca pliku EOF (z klawiatury wysyla sie go sekwencja klawiszy [Ctrl D]), po czym klient powinien zamkna´c i usuna´c wlasna kolejke oraz zamkna´c kolejke serwera
+ – czynno´sci te umiescic w funkcji rejestrowanej przez atexit oraz w obsludze sygnalu SIGINT.
+Serwer niech dzia la w petli nieskonczonej (proces demon), probujac odbierac komunikaty ze swojej kolejki. Po otrzymaniu komunikatu od klienta,
+ serwer powinien odczyta´c z niego PID klienta (np. funkcja atoi) i otworzy´c kolejke klienta w trybie do nadawania komunikat´ow o nazwie postaci /PID 
+(uzyc np. funkcji snprintf). Nastepnie z komunikatu powinien odczyta´c odpowiednie dzia lanie (mozna uzyc np. funkcji sscanf), wykonac je
+i odeslac wynik w komunikacie (uzyc np. funkcji snprintf) do kolejki klienta, po czym zamkna´c te kolejke. Proces serwera mozna zakonczyc np. sygnalem SIGINT
+ (z klawiatury sekwencja klawiszy [Ctrl C]), z tym ÿze serwer powinien przechwycic ten sygnal i wykonac jego obsluge polegajaca na zamknieciu i usunieciu wlasnej
+ kolejki komunikat´ow– czynno´sci te umiescic w funkcji rejestrowanej przez atexit.
+Niech procesy serwera i klienta wypisuja na ekranie odpowiednie komunikaty, w szczeg´olno´sci atrybuty kolejek komunikat´ow zaraz po ich utworzeniu. Kaÿzdy proces uruchamia´c
+z innego terminala, np. uÿzy´c polecenia:
+xterm -hold -title SERWER -bg red -fg black -e ./serwer.x &
+xterm -hold -title KLIENT1 -bg green -fg black -e ./klient.x &
+xterm -hold -title KLIENT2 -bg green -fg black -e ./klient.x &
+...
+w pliku Makefile do uruchomienia serwera i kilku klient´ow. Podobnie jak dla semaforow, stworzyc wlasna biblioteke funkcji do obslugi kolejek
+komunikatow – ,,opakowujacych” przedstawione funkcje, zawierajacych diagnostyke ich bledow i zwracajacych 0 w przypadku porazki. Wywolywac je z uzyciem makra assert,
+gdy nie trzeba usuwac kolejki oraz z uÿzyciem funkcji exit, gdy kolejke nalezy usunac.
+
+------------------------------------------------------------------------
+
+* Jak uruchomic programy:
+=========================
+
+Katalog zawiera program Makefile do kompilacji, linkowania
+i uruchamiania powyzszych programow, a takze czyszczenia katalogu 
+i jego archiwizacji.
+
+-> Aby uruchomic program, nalezy wykonac komende:
+	make run
+
+-> Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+       make clean
+
+-> W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+       make tar
+
+========================================================================
+Odpowiedzi do pytan:
