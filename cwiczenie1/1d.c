@@ -5,37 +5,30 @@
 #include <stdlib.h>
 
 int main(){
-printf("Identyfikatory procesu macierzystego: UID: %d, GID: %d, PID: %d, PGID: %d, PPID: %d\n",
+	printf("Identyfikatory procesu macierzystego: UID: %d, GID: %d, PID: %d, PGID: %d, PPID: %d\n",
 		 getuid(), getgid(), getpid(), getpgid(getpid()), getppid());
 
 
-for(int i=0; i<3; i++){
+	for(int i=0; i<3; i++){
+		switch (fork())
+		{
+			case -1:
+				perror("fork error");
+				exit(1);
 
-switch (fork())
-{
+			case 0:
+				sleep(3);
+				printf("Identyfikatory procesu potomnego: UID: %d, GID: %d, PID: %d, PGID: %d, PPID: %d\n",
+					 getuid(), getgid(), getpid(), getpgid(getpid()), getppid());
+				break;
 
-case -1:
+			default:
+				sleep(5);
+				break;
 
-perror("fork error");
-exit(1);
+		}
+	}
 
-case 0:
-sleep(3);
-printf("Identyfikatory procesu potomnego: UID: %d, GID: %d, PID: %d, PGID: %d, PPID: %d\n",
-		 getuid(), getgid(), getpid(), getpgid(getpid()), getppid());
-
-
-break;
-
-default:
-sleep(5);
-
-break;
-
-}
-}
-
-return 0;
-
+	return 0;
 
 }
