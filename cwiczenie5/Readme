@@ -1,0 +1,43 @@
+========================================================================
+Autor: Alicja Fedor,                               Krakow, 29.04.2024
+========================================================================
+
+* Zawartosc:
+============
+
+Katalog cwiczenie5 zawiera:
+--------------------------------------------------------------------
+CWICZENIE 5:  Producent–Konsument: Potoki Nazwane
+Przy pomocy potokow nazwanych systemu UNIX zaimplementowac problem ,,Producenta i Konsumenta” z cwiczenia 4.
+(a) Utworzyc potok FIFO z poziomu programu, a nastepnie uruchomic procesy Producenta i Konsumenta w tym samym programie (w procesie macierzystym i potomnym
+lub w dwoch potomnych). Potok usuwac w funkcji zarejestrowanej przez atexit.
+(b) Sprawdzic, ze potoki FIFO dzialaja dla niezaleznych procesow przez utworzenie
+potoku FIFO z linii komend oraz uruchomienie procesow Producenta i Konsumenta
+niezaleznie z poziomu powloki, np. w roznych terminalach – mozna uzyc polecenia:
+xterm -hold -title nazwa okna -e nazwa programu &
+dla kazdego z tych procesow w pliku Makefile (jak tez tworzenie/usuwanie potoku).
+
+------------------------------------------------------------------------
+
+* Jak uruchomic programy:
+=========================
+
+Katalog zawiera program Makefile do kompilacji, linkowania
+i uruchamiania powyzszych programow, a takze czyszczenia katalogu 
+i jego archiwizacji.
+
+-> Aby uruchomic program1, nalezy wykonac komende:
+	make -r run1
+
+-> do podpunktu b nalezy wykonac make all, nastepnie utworzyc potok poprzez komende mkfifo potok, 
+	i w dwoch osobnych terminalach uruchomic programy wpisujac ./producent.x i do drugiego ./konsument.x
+
+
+-> Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+       make clean
+
+-> W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+       make tar
+
+========================================================================
+Odpowiedzi do pytan:
