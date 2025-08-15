@@ -1,0 +1,35 @@
+========================================================================
+Autor: Alicja Fedor,                               Krakow, 14.05.2024
+========================================================================
+
+* Zawartosc:
+============
+
+Katalog cwiczenie9 zawiera:
+--------------------------------------------------------------------
+CWICZENIE 9: Wzajemne wykluczanie dla Watkow: Muteksy
+Przy pomocy muteksow zaimplementowac zadanie wzajemnego wykluczania dla watkow. Do demonstracji dzialania programu mozna uzyc sekwencji sterujacych konsoli (patrz np. plik hello.c w katalogu StartSO). Niech na przyklad watek wykonujac swoja sekcje prywatna wypisuje odpowiedni komunikat po lewej stronie okna konsoli, natomiast bedac w sekcji krytycznej drukuje informacje po prawej stronie (w tym samym wierszu).
+Kazdy watek moze kilka razy powtarzac powyzszy cykl. Przy poprawnie zrealizowanym zadaniu wzajemnego wykluczania, po prawej stronie okna konsoli w danym momencie powinien zglaszac si e co najwyzej jeden watek, pozostale natomiast powinny zglaszac sie po lewej stronie (kazdy watek w ustalonym wierszu okna terminala). Do zademonstrowania operacji na zasobie dzielonym uzyc np. wspolnej (globalnej)
+zmiennej licznikowej, zainicjowanej wartoscia 0. Niech kazdy z watkow na poczatku sekcji krytycznej przypisuje jej wartosc swojemu prywatnemu licznikowi, nastepnie zwieksza wartosc tego prywatnego licznika o 1, a po pewnym czasie (uzyc np. funkcji sleep) przypisuje jego wartosc wspolnemu licznikowi. Sprawdzic, czy po zakonczeniu dzialania wszystkich watkow wartosc tego wspolnego licznika jest taka jaka powinna byc.
+
+------------------------------------------------------------------------
+
+* Jak uruchomic programy:
+=========================
+
+Katalog zawiera program Makefile do kompilacji, linkowania
+i uruchamiania powyzszych programow, a takze czyszczenia katalogu 
+i jego archiwizacji.
+
+-> Aby uruchomic program, nalezy wykonac komende:
+	make run
+
+
+-> Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+       make clean
+
+-> W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+       make tar
+
+========================================================================
+Odpowiedzi do pytan:
